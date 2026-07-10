@@ -1,7 +1,13 @@
 <script setup>
+import simcase1 from '../assets/defect-images/simcase-1.png'
+import simcase2 from '../assets/defect-images/simcase-2.png'
+import simcase3 from '../assets/defect-images/simcase-3.png'
+import simcase4 from '../assets/defect-images/simcase-4.png'
+import simcase5 from '../assets/defect-images/simcase-5.png'
+
 const rows = [
   {
-    rank: 1, score: 98.1, code: '2A',
+    rank: 1, score: 98.1, code: '2A', img: simcase1,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask, Pattern\nSize 유사',
     diff: 'WF Process 1단계 차이\n위치 320um 차이',
@@ -10,7 +16,7 @@ const rows = [
     highlight: false,
   },
   {
-    rank: 2, score: 97.4, code: '2A',
+    rank: 2, score: 97.4, code: '2A', img: simcase2,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask,  Device\nPattern 유사',
     diff: 'WF Process 동일\n위치 150um 차이',
@@ -19,7 +25,7 @@ const rows = [
     highlight: false,
   },
   {
-    rank: 3, score: 95.9, code: '2A',
+    rank: 3, score: 95.9, code: '2A', img: simcase3,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask 동일\nSize 유사',
     diff: 'WF Process 2단계 차이',
@@ -28,7 +34,7 @@ const rows = [
     highlight: false,
   },
   {
-    rank: 4, score: 94.8, code: '2B',
+    rank: 4, score: 94.8, code: '2B', img: simcase4,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask 동일\nPattern 유사',
     diff: 'Size 1.8x larger\nCritical Area 위치',
@@ -37,7 +43,7 @@ const rows = [
     highlight: true,
   },
   {
-    rank: 5, score: 93.7, code: '2A',
+    rank: 5, score: 93.7, code: '2A', img: simcase5,
     layerMaskDevice: 'M3 / M3A / D256M',
     same: 'Mask, Pattern 유사',
     diff: 'Device 다름\nWF Process 1단계 차이',
@@ -75,19 +81,10 @@ const rows = [
               <div class="rank-cell">
                 <span class="rank-num">{{ r.rank }}</span>
                 <div class="thumb-cell">
-                  <svg viewBox="0 0 60 44">
-                    <rect width="60" height="44" fill="#26282b"/>
-                    <rect x="0" y="10" width="60" height="7" fill="#1c1e20"/>
-                    <rect x="0" y="27" width="60" height="7" fill="#1c1e20"/>
-                    <line x1="0" y1="10" x2="60" y2="10" stroke="#3d4044" stroke-width="0.8"/>
-                    <line x1="0" y1="17" x2="60" y2="17" stroke="#3d4044" stroke-width="0.8"/>
-                    <line x1="0" y1="27" x2="60" y2="27" stroke="#3d4044" stroke-width="0.8"/>
-                    <line x1="0" y1="34" x2="60" y2="34" stroke="#3d4044" stroke-width="0.8"/>
-                    <path d="M 18 22 Q 30 18 42 22" fill="none" stroke="#b8bcc0" stroke-width="1.1" opacity="0.85"/>
-                    <template v-if="r.highlight">
-                      <rect x="24" y="16" width="14" height="12" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,1.5"/>
-                      <line x1="12" y1="22" x2="48" y2="22" stroke="#f44336" stroke-width="0.5" opacity="0.6"/>
-                    </template>
+                  <img :src="r.img" :alt="`similar case rank ${r.rank}`"/>
+                  <svg v-if="r.highlight" class="thumb-cell-overlay" viewBox="0 0 60 44" preserveAspectRatio="none">
+                    <rect x="24" y="16" width="14" height="12" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,1.5"/>
+                    <line x1="12" y1="22" x2="48" y2="22" stroke="#f44336" stroke-width="0.5" opacity="0.6"/>
                   </svg>
                 </div>
               </div>
@@ -182,7 +179,9 @@ td { padding: 6px 8px; vertical-align: middle; }
 }
 .rank-num { font-size: 11px; font-weight: 700; color: #607090; width: 12px; }
 
-.thumb-cell svg { width: 60px; height: 44px; border-radius: 3px; display: block; }
+.thumb-cell { position: relative; width: 60px; height: 44px; line-height: 0; }
+.thumb-cell img { width: 60px; height: 44px; border-radius: 3px; display: block; object-fit: cover; }
+.thumb-cell-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .td-mono { font-family: 'Courier New', monospace; font-size: 10px; color: #2c3345; white-space: nowrap; }
 

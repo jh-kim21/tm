@@ -1,4 +1,12 @@
 <script setup>
+import mainDefectImg from '../assets/defect-images/main-defect.png'
+import gallery1 from '../assets/defect-images/gallery-1.png'
+import gallery2 from '../assets/defect-images/gallery-2.png'
+import gallery3 from '../assets/defect-images/gallery-3.png'
+import gallery4 from '../assets/defect-images/gallery-4.png'
+import gallery5 from '../assets/defect-images/gallery-5.png'
+import gallery6 from '../assets/defect-images/gallery-6.png'
+
 // Defect dots inside a circle (center 100,100 radius 82)
 const defects = [
   { cx: 115, cy: 82,  type: 'current',  code: '2A' },
@@ -28,12 +36,12 @@ const colorMap = {
 }
 
 const thumbnails = [
-  { id: 1, label: 'DEF-042', active: true },
-  { id: 2, label: 'DEF-041', active: false },
-  { id: 3, label: 'REF-2A',  active: false },
-  { id: 4, label: 'REF-2B',  active: false },
-  { id: 5, label: 'REF-2A',  active: false },
-  { id: 6, label: 'REF-1A',  active: false },
+  { id: 1, label: 'DEF-042', active: true,  img: gallery1 },
+  { id: 2, label: 'DEF-041', active: false, img: gallery2 },
+  { id: 3, label: 'REF-2A',  active: false, img: gallery3 },
+  { id: 4, label: 'REF-2B',  active: false, img: gallery4 },
+  { id: 5, label: 'REF-2A',  active: false, img: gallery5 },
+  { id: 6, label: 'REF-1A',  active: false, img: gallery6 },
 ]
 
 const metaInfo = [
@@ -104,19 +112,8 @@ const metaInfo = [
           <div class="sub-label">Defect Image</div>
           <div class="image-row">
             <div class="def-img-wrap">
-              <svg class="def-img" viewBox="0 0 220 160">
-                <!-- SEM-like grayscale background -->
-                <rect width="220" height="160" fill="#28292b"/>
-                <!-- Gate line bands -->
-                <rect x="0" y="52" width="220" height="24" fill="#1c1d1f"/>
-                <rect x="0" y="100" width="220" height="24" fill="#1c1d1f"/>
-                <line x1="0" y1="52"  x2="220" y2="52"  stroke="#4a4d51" stroke-width="1"/>
-                <line x1="0" y1="76"  x2="220" y2="76"  stroke="#4a4d51" stroke-width="1"/>
-                <line x1="0" y1="100" x2="220" y2="100" stroke="#4a4d51" stroke-width="1"/>
-                <line x1="0" y1="124" x2="220" y2="124" stroke="#4a4d51" stroke-width="1"/>
-                <!-- Hairline bridge defect between the two gate lines -->
-                <path d="M 88 88 Q 110 78 132 88" fill="none" stroke="#c8cbcf" stroke-width="1.6" opacity="0.9"/>
-                <path d="M 92 90 Q 110 84 128 90" fill="none" stroke="#9a9da1" stroke-width="1" opacity="0.7"/>
+              <img class="def-img" :src="mainDefectImg" alt="Defect image DEF-042"/>
+              <svg class="def-img-overlay" viewBox="0 0 220 160" preserveAspectRatio="none">
                 <!-- Defect area highlight -->
                 <rect x="98" y="76" width="24" height="20" fill="none" stroke="#f44336" stroke-width="1.3" stroke-dasharray="3,2" opacity="0.9"/>
                 <line x1="88" y1="86" x2="132" y2="86" stroke="#f44336" stroke-width="0.6" opacity="0.6"/>
@@ -144,17 +141,12 @@ const metaInfo = [
         <div class="sub-label">Image Gallery</div>
         <div class="thumb-strip">
           <div v-for="t in thumbnails" :key="t.id" :class="['thumb', { active: t.active }]">
-            <svg viewBox="0 0 60 44">
-              <rect width="60" height="44" fill="#26282b"/>
-              <rect x="0" y="10" width="60" height="7" fill="#1c1e20"/>
-              <rect x="0" y="27" width="60" height="7" fill="#1c1e20"/>
-              <line x1="0" y1="10" x2="60" y2="10" stroke="#3d4044" stroke-width="0.8"/>
-              <line x1="0" y1="17" x2="60" y2="17" stroke="#3d4044" stroke-width="0.8"/>
-              <line x1="0" y1="27" x2="60" y2="27" stroke="#3d4044" stroke-width="0.8"/>
-              <line x1="0" y1="34" x2="60" y2="34" stroke="#3d4044" stroke-width="0.8"/>
-              <path d="M 18 22 Q 30 18 42 22" fill="none" stroke="#b8bcc0" stroke-width="1.1" opacity="0.85"/>
-              <rect v-if="t.active" x="24" y="16" width="14" height="12" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,1.5"/>
-            </svg>
+            <div class="thumb-img-wrap">
+              <img :src="t.img" :alt="t.label"/>
+              <svg v-if="t.active" class="thumb-overlay" viewBox="0 0 60 44" preserveAspectRatio="none">
+                <rect x="24" y="16" width="14" height="12" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,1.5"/>
+              </svg>
+            </div>
             <span>{{ t.label }}</span>
           </div>
         </div>
@@ -302,13 +294,21 @@ const metaInfo = [
 .defect-stat b { color: #1a2a4a; }
 
 .def-img-wrap {
+  position: relative;
   flex: 1;
   min-width: 0;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #1a3a5a;
+  line-height: 0;
 }
 .def-img { width: 100%; display: block; }
+.def-img-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 
 .thumb-strip {
   display: flex;
@@ -329,7 +329,9 @@ const metaInfo = [
 }
 .thumb:hover { border-color: #90b8e0; }
 .thumb.active { border-color: #1565c0; }
-.thumb svg { width: 100%; border-radius: 3px; }
+.thumb-img-wrap { position: relative; width: 100%; line-height: 0; }
+.thumb-img-wrap img { width: 100%; border-radius: 3px; display: block; }
+.thumb-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
 .thumb span { font-size: 9px; color: #607090; }
 .thumb.active span { color: #1565c0; font-weight: 600; }
 </style>
