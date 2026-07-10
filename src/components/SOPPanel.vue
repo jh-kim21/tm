@@ -1,9 +1,15 @@
 <script setup>
-const sopDoc = {
-  id: 'GT-2A-001',
-  title: 'Gate Layer Type 2A 결함 분류 기준',
-  version: 'Rev.3',
-  updated: '2025-11-15',
+import { ref } from 'vue'
+
+const activeTab = ref('mail')
+
+const mail = {
+  subject: '[Rule Update] M3 Layer Hairline Defect 판정 기준 변경',
+  sentDate: '2026-06-28',
+  author: 'Process Engineering Team',
+  approver: 'Quality Manager',
+  effectiveDate: '2026-07-01',
+  body: '"고객 요청에 따라 M3 Layer Hairline Defect는\n기존 2B가 아닌 2A로 처리한다.\n해당 변경은 2026-07-01 이후 발생하는 Lot부터 적용한다."',
 }
 
 const conditions = [
@@ -28,16 +34,34 @@ const relatedSOP = [
       <span class="panel-title">SOP / 메일 근거 원문</span>
     </div>
 
-    <div class="body">
-      <div class="sop-meta">
-        <div class="sop-id-block">
-          <span class="sop-id">{{ sopDoc.id }}</span>
-          <span class="sop-ver">{{ sopDoc.version }}</span>
-        </div>
-        <div class="sop-title">{{ sopDoc.title }}</div>
-        <div class="sop-date">최종 업데이트: {{ sopDoc.updated }}</div>
+    <div class="tabs">
+      <button :class="['tab-btn', { active: activeTab === 'mail' }]" @click="activeTab = 'mail'">Mail</button>
+      <button :class="['tab-btn', { active: activeTab === 'sop' }]" @click="activeTab = 'sop'">SOP</button>
+    </div>
+
+    <div class="body" v-if="activeTab === 'mail'">
+      <table class="mail-meta">
+        <tbody>
+          <tr><td class="mkey">제목</td><td class="mval">{{ mail.subject }}</td></tr>
+          <tr><td class="mkey">발신일</td><td class="mval">{{ mail.sentDate }}</td></tr>
+          <tr><td class="mkey">작성자</td><td class="mval">{{ mail.author }}</td></tr>
+          <tr><td class="mkey">승인자</td><td class="mval">{{ mail.approver }}</td></tr>
+          <tr><td class="mkey">적용일</td><td class="mval">{{ mail.effectiveDate }}</td></tr>
+        </tbody>
+      </table>
+
+      <div class="mail-body-section">
+        <div class="mail-body-title">원문 내용</div>
+        <div class="mail-body-text">{{ mail.body }}</div>
       </div>
 
+      <div class="ev-btn-row">
+        <button class="ev-btn">전체 원문 보기</button>
+        <button class="ev-btn">관련 Defect 사례 보기</button>
+      </div>
+    </div>
+
+    <div class="body" v-else>
       <table class="cond-table">
         <thead>
           <tr>
@@ -93,30 +117,77 @@ const relatedSOP = [
 }
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 6px 12px 0;
+  border-bottom: 1px solid #eef1f7;
+}
+.tab-btn {
+  padding: 6px 14px;
+  border: none;
+  background: none;
+  color: #90a0b8;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tab-btn.active { color: #1565c0; border-bottom-color: #1565c0; }
+
 .body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; overflow: auto; }
 
-.sop-meta {
+.mail-meta {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.mail-meta tr { border-bottom: 1px solid #f0f4fa; }
+.mail-meta tr:last-child { border-bottom: none; }
+.mkey {
+  width: 54px;
+  color: #90a0b8;
+  padding: 4px 8px 4px 0;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.mval { color: #1a2a4a; font-weight: 600; padding: 4px 0; }
+
+.mail-body-section {
   background: #f0f4fa;
   border-left: 3px solid #1565c0;
   border-radius: 0 6px 6px 0;
   padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
 }
-.sop-id-block { display: flex; gap: 6px; align-items: center; }
-.sop-id {
-  font-size: 13px; font-weight: 800;
+.mail-body-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #607090;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+.mail-body-text {
+  font-size: 11px;
+  color: #2c3345;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.ev-btn-row { display: flex; gap: 6px; margin-top: auto; }
+.ev-btn {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #d0d8e8;
+  background: white;
   color: #1565c0;
-  font-family: 'Courier New', monospace;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
 }
-.sop-ver {
-  font-size: 10px; font-weight: 600;
-  color: white; background: #1565c0;
-  padding: 1px 6px; border-radius: 3px;
-}
-.sop-title { font-size: 11px; font-weight: 600; color: #1a2a4a; }
-.sop-date { font-size: 10px; color: #90a0b8; }
+.ev-btn:hover { background: #e3f2fd; border-color: #1565c0; }
 
 .cond-table {
   width: 100%;

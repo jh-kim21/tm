@@ -11,38 +11,45 @@ const gradeOptions = ['1', '2', '3', '4', 'Scrap']
 
 const auditLog = ref([
   {
-    time: '14:23:05',
+    time: '2026-07-15 10:21',
     actor: 'AI System',
-    action: '자동 분석 완료',
-    detail: '코드 2A, 신뢰도 91.8%',
+    action: 'AI Recommendation',
+    detail: 'Code: 2A (91.8%)',
     type: 'ai',
   },
   {
-    time: '14:22:48',
-    actor: 'AI System',
-    action: '유사 마스크 검색',
-    detail: '5건 검색 완료',
-    type: 'ai',
-  },
-  {
-    time: '14:22:31',
-    actor: 'System',
-    action: 'SOP 조회',
-    detail: 'GT-2A-001 매칭',
-    type: 'system',
-  },
-  {
-    time: '14:22:10',
+    time: '2026-07-15 10:22',
     actor: 'Eng. Kim',
-    action: '결함 선택',
-    detail: 'DEF-042 검토 시작',
+    action: 'Engineer Review',
+    detail: 'Code: 2A',
     type: 'user',
+  },
+  {
+    time: '2026-07-15 10:25',
+    actor: 'Eng. Kim',
+    action: 'Final Judge',
+    detail: 'Code: 2A',
+    type: 'judge',
+  },
+  {
+    time: '2026-07-15 10:25',
+    actor: 'Eng. Kim',
+    action: 'Comment 입력',
+    detail: '"유사사례 및 SOP 근거 확인 후 2A 결정."',
+    type: 'user',
+  },
+  {
+    time: '2026-07-15 10:26',
+    actor: 'Eng. Kim',
+    action: 'Approve',
+    detail: 'Engineer Kim',
+    type: 'judge',
   },
 ])
 
 function submit() {
   if (!comment.value.trim()) return
-  auditLog.value.unshift({
+  auditLog.value.push({
     time: new Date().toLocaleTimeString('ko-KR', { hour12: false }),
     actor: 'Eng. Kim',
     action: `판정 확정 [${selectedCode.value}]`,

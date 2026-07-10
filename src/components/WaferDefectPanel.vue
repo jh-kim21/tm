@@ -86,12 +86,17 @@ const metaInfo = [
             <line x1="107" y1="82" x2="123" y2="82" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
             <line x1="115" y1="74" x2="115" y2="90" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
           </svg>
+          <div class="legend-title">Defect</div>
           <div class="legend">
-            <span><i style="background:#f44336"></i>현재 결함</span>
-            <span><i style="background:#ff9800"></i>Major</span>
-            <span><i style="background:#42a5f5"></i>Minor</span>
+            <span><i style="background:#f44336"></i>&ge; 10</span>
+            <span><i style="background:#ff9800"></i>5 ~ 9</span>
+            <span><i style="background:#fdd835"></i>1 ~ 4</span>
+            <span><i style="background:#9e9e9e"></i>0</span>
           </div>
-          <div class="defect-stat">총 결함: <b>18</b>개 | 현재: <b>DEF-042</b></div>
+          <div class="defect-stat">
+            <div><span>Total Defect</span><b>128</b></div>
+            <div><span>Selected</span><b>1</b></div>
+          </div>
         </div>
 
         <!-- Defect Image + Meta -->
@@ -100,33 +105,25 @@ const metaInfo = [
           <div class="image-row">
             <div class="def-img-wrap">
               <svg class="def-img" viewBox="0 0 220 160">
-                <!-- SEM-like image background -->
-                <rect width="220" height="160" fill="#080c10"/>
-                <!-- Circuit pattern lines -->
-                <rect x="0"   y="30"  width="220" height="18" fill="#0e2235" opacity="0.9"/>
-                <rect x="0"   y="72"  width="220" height="14" fill="#0e2235" opacity="0.9"/>
-                <rect x="0"   y="112" width="220" height="18" fill="#0e2235" opacity="0.9"/>
-                <!-- Vertical contacts -->
-                <rect x="22"  y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-                <rect x="68"  y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
-                <rect x="112" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-                <rect x="158" y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
-                <rect x="194" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-                <!-- Bright edges (gates) -->
-                <line x1="0" y1="30"  x2="220" y2="30"  stroke="#4a9acc" stroke-width="1.2"/>
-                <line x1="0" y1="48"  x2="220" y2="48"  stroke="#4a9acc" stroke-width="1.2"/>
-                <line x1="0" y1="72"  x2="220" y2="72"  stroke="#4a9acc" stroke-width="1"/>
-                <line x1="0" y1="86"  x2="220" y2="86"  stroke="#4a9acc" stroke-width="1"/>
-                <line x1="0" y1="112" x2="220" y2="112" stroke="#4a9acc" stroke-width="1.2"/>
-                <line x1="0" y1="130" x2="220" y2="130" stroke="#4a9acc" stroke-width="1.2"/>
+                <!-- SEM-like grayscale background -->
+                <rect width="220" height="160" fill="#28292b"/>
+                <!-- Gate line bands -->
+                <rect x="0" y="52" width="220" height="24" fill="#1c1d1f"/>
+                <rect x="0" y="100" width="220" height="24" fill="#1c1d1f"/>
+                <line x1="0" y1="52"  x2="220" y2="52"  stroke="#4a4d51" stroke-width="1"/>
+                <line x1="0" y1="76"  x2="220" y2="76"  stroke="#4a4d51" stroke-width="1"/>
+                <line x1="0" y1="100" x2="220" y2="100" stroke="#4a4d51" stroke-width="1"/>
+                <line x1="0" y1="124" x2="220" y2="124" stroke="#4a4d51" stroke-width="1"/>
+                <!-- Hairline bridge defect between the two gate lines -->
+                <path d="M 88 88 Q 110 78 132 88" fill="none" stroke="#c8cbcf" stroke-width="1.6" opacity="0.9"/>
+                <path d="M 92 90 Q 110 84 128 90" fill="none" stroke="#9a9da1" stroke-width="1" opacity="0.7"/>
                 <!-- Defect area highlight -->
-                <circle cx="118" cy="76" r="18" fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.85"/>
-                <!-- Defect particle -->
-                <ellipse cx="118" cy="76" rx="6" ry="4" fill="#c0392b" opacity="0.9"/>
-                <ellipse cx="121" cy="79" rx="3" ry="2" fill="#e74c3c" opacity="0.7"/>
+                <rect x="98" y="76" width="24" height="20" fill="none" stroke="#f44336" stroke-width="1.3" stroke-dasharray="3,2" opacity="0.9"/>
+                <line x1="88" y1="86" x2="132" y2="86" stroke="#f44336" stroke-width="0.6" opacity="0.6"/>
+                <line x1="110" y1="70" x2="110" y2="102" stroke="#f44336" stroke-width="0.6" opacity="0.6"/>
                 <!-- Scale bar -->
                 <line x1="180" y1="148" x2="210" y2="148" stroke="white" stroke-width="1.5"/>
-                <text x="195" y="157" text-anchor="middle" fill="white" font-size="8">0.5 μm</text>
+                <text x="195" y="157" text-anchor="middle" fill="white" font-size="8">2 um</text>
                 <!-- ADC marker -->
                 <rect x="2" y="2" width="42" height="14" fill="#f44336" rx="2" opacity="0.85"/>
                 <text x="23" y="12" text-anchor="middle" fill="white" font-size="9" font-weight="bold">DEF-042</text>
@@ -148,15 +145,15 @@ const metaInfo = [
         <div class="thumb-strip">
           <div v-for="t in thumbnails" :key="t.id" :class="['thumb', { active: t.active }]">
             <svg viewBox="0 0 60 44">
-              <rect width="60" height="44" fill="#0a0f18"/>
-              <rect x="0" y="10" width="60" height="6" fill="#0e2235"/>
-              <rect x="0" y="26" width="60" height="6" fill="#0e2235"/>
-              <line x1="0" y1="10" x2="60" y2="10" stroke="#2a6a9a" stroke-width="0.8"/>
-              <line x1="0" y1="16" x2="60" y2="16" stroke="#2a6a9a" stroke-width="0.8"/>
-              <line x1="0" y1="26" x2="60" y2="26" stroke="#2a6a9a" stroke-width="0.8"/>
-              <line x1="0" y1="32" x2="60" y2="32" stroke="#2a6a9a" stroke-width="0.8"/>
-              <circle v-if="t.active" cx="32" cy="20" r="5" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,2"/>
-              <circle v-if="t.active" cx="32" cy="20" r="2" fill="#f44336" opacity="0.8"/>
+              <rect width="60" height="44" fill="#26282b"/>
+              <rect x="0" y="10" width="60" height="7" fill="#1c1e20"/>
+              <rect x="0" y="27" width="60" height="7" fill="#1c1e20"/>
+              <line x1="0" y1="10" x2="60" y2="10" stroke="#3d4044" stroke-width="0.8"/>
+              <line x1="0" y1="17" x2="60" y2="17" stroke="#3d4044" stroke-width="0.8"/>
+              <line x1="0" y1="27" x2="60" y2="27" stroke="#3d4044" stroke-width="0.8"/>
+              <line x1="0" y1="34" x2="60" y2="34" stroke="#3d4044" stroke-width="0.8"/>
+              <path d="M 18 22 Q 30 18 42 22" fill="none" stroke="#b8bcc0" stroke-width="1.1" opacity="0.85"/>
+              <rect v-if="t.active" x="24" y="16" width="14" height="12" fill="none" stroke="#f44336" stroke-width="1" stroke-dasharray="2,1.5"/>
             </svg>
             <span>{{ t.label }}</span>
           </div>
@@ -284,12 +281,25 @@ const metaInfo = [
   vertical-align: middle;
 }
 
+.legend-title {
+  font-size: 9px;
+  font-weight: 700;
+  color: #90a0b8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-top: 4px;
+}
+
 .defect-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   font-size: 10px;
   color: #607090;
-  margin-top: 3px;
+  margin-top: 5px;
 }
-.defect-stat b { color: #1565c0; }
+.defect-stat > div { display: flex; justify-content: space-between; gap: 8px; }
+.defect-stat b { color: #1a2a4a; }
 
 .def-img-wrap {
   flex: 1;

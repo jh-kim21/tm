@@ -1,21 +1,13 @@
 <script setup>
-const confidence = 91.8
-const circumference = 2 * Math.PI * 38
-const dashArray = `${(confidence / 100) * circumference} ${circumference}`
-
-const info = [
-  { label: 'Device',       value: 'D30V-A' },
-  { label: 'WFPROCESS',    value: '20nm KRF' },
-  { label: 'MASKPROCESS',  value: 'Dry Etch' },
-  { label: 'LAYERID',      value: 'GT-001' },
-  { label: 'LAYER NAME',   value: 'GATE' },
-  { label: 'MASKTYPE',     value: '6025 QZ' },
+const reasons = [
+  '유사사례 50건 중 44건 (88%)이 2A로 최종 판정됨',
+  '동일 Layer / 동일 Mask Process 사례 39건 중 39건이 2A',
+  '최근 SOP Rule (2026-07-01 적용)과 일치',
 ]
 
-const adcCases = [
-  { lot: 'LT220501', code: '2A', result: 'Pass' },
-  { lot: 'LT220438', code: '2A', result: 'Pass' },
-  { lot: 'LT220312', code: '2B', result: 'Fail' },
+const cautions = [
+  'ADC는 2B를 62%로 제안함',
+  'Critical Area 근처 여부 확인 필요',
 ]
 </script>
 
@@ -27,71 +19,39 @@ const adcCases = [
     </div>
 
     <div class="body">
-      <!-- AI code + gauge -->
-      <div class="top-row">
-        <div class="code-block">
-          <div class="code-badge">2A</div>
-          <div class="code-label">
-            <span class="ai-tag">AI Recommendation</span>
-            <span class="code-desc">Gate Layer Particle</span>
-          </div>
+      <div class="summary-row">
+        <div class="summary-block">
+          <div class="summary-label">Recommended Code</div>
+          <div class="summary-code">2A</div>
         </div>
-
-        <div class="gauge-block">
-          <svg class="gauge-svg" viewBox="0 0 90 90">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#e8edf4" stroke-width="9"/>
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#ff9800" stroke-width="9"
-              :stroke-dasharray="dashArray"
-              stroke-dashoffset="0"
-              stroke-linecap="round"
-              transform="rotate(-90 45 45)"/>
-            <text x="45" y="41" text-anchor="middle" font-size="16" font-weight="700" fill="#1a2a4a">{{ confidence }}</text>
-            <text x="45" y="53" text-anchor="middle" font-size="8" fill="#607090">Confidence</text>
-          </svg>
-          <div class="score-block">
-            <div class="score-val">91.8</div>
-            <div class="score-lbl">Score</div>
+        <div class="summary-block">
+          <div class="summary-label">Confidence</div>
+          <div class="summary-conf">91.8%</div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-label">Evidence Level</div>
+          <div class="summary-evidence">
+            <svg viewBox="0 0 20 22" class="shield-icon">
+              <path d="M10 1 L18 4 V10 C18 15 14.5 19 10 21 C5.5 19 2 15 2 10 V4 Z" fill="#1565c0"/>
+              <path d="M6 10.5 L9 13.5 L14 7.5" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Strong</span>
           </div>
         </div>
       </div>
 
-      <!-- Info table -->
-      <table class="info-table">
-        <tbody>
-          <tr v-for="r in info" :key="r.label">
-            <td class="lbl">{{ r.label }}</td>
-            <td class="val">{{ r.value }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- ADC similar cases -->
-      <div class="adc-section">
-        <div class="section-sub">
-          <span class="dot-blue"></span>
-          유사 ADC <b>{{ adcCases.length }}건</b>
-        </div>
-        <table class="adc-table">
-          <thead>
-            <tr>
-              <th>LOT</th><th>판정코드</th><th>결과</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="c in adcCases" :key="c.lot">
-              <td>{{ c.lot }}</td>
-              <td><span class="code-chip">{{ c.code }}</span></td>
-              <td><span :class="['result-chip', c.result === 'Pass' ? 'pass' : 'fail']">{{ c.result }}</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="why-section">
+        <div class="why-title">왜 2A인가? (요약)</div>
+        <ol class="why-list">
+          <li v-for="(r, i) in reasons" :key="i">{{ r }}</li>
+        </ol>
       </div>
 
-      <!-- Grade -->
-      <div class="grade-row">
-        <span class="grade-lbl">결함등급 조건 항목</span>
-        <span class="grade-badge">3</span>
-        <span class="grade-desc">ADC 처리 대상</span>
+      <div class="caution-box">
+        <div class="caution-title">주의 조건</div>
+        <ul class="caution-list">
+          <li v-for="(c, i) in cautions" :key="i">{{ c }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -125,145 +85,63 @@ const adcCases = [
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 .panel-title .sub { font-weight: 400; color: #607090; font-size: 11px; }
 
-.body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; overflow: auto; }
+.body { padding: 12px; display: flex; flex-direction: column; gap: 14px; flex: 1; overflow: auto; }
 
-.top-row {
+.summary-row {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
-
-.code-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-.code-badge {
-  width: 64px; height: 64px;
-  background: linear-gradient(135deg, #1565c0, #0288d1);
-  color: white;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px; font-weight: 800;
-  box-shadow: 0 3px 10px rgba(21,101,192,0.35);
-  letter-spacing: -1px;
-}
-.ai-tag {
-  display: block;
-  font-size: 10px;
-  color: #0288d1;
-  font-weight: 700;
-  background: #e3f2fd;
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-.code-desc { font-size: 10px; color: #607090; }
-
-.gauge-block {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  justify-content: flex-end;
-}
-.gauge-svg { width: 80px; height: 80px; }
-
-.score-block { text-align: center; }
-.score-val {
-  font-size: 26px; font-weight: 800;
-  color: #ff9800;
-  line-height: 1;
-}
-.score-lbl { font-size: 10px; color: #607090; }
-
-.info-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 11px;
-}
-.info-table tr { border-bottom: 1px solid #f0f4fa; }
-.info-table tr:last-child { border-bottom: none; }
-.info-table .lbl {
-  width: 90px;
-  color: #607090;
-  padding: 4px 6px 4px 0;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-.info-table .val {
-  color: #1a2a4a;
-  font-weight: 600;
-  padding: 4px 0;
-}
-
-.adc-section {}
-.section-sub {
-  font-size: 11px;
-  font-weight: 600;
-  color: #1a2a4a;
+.summary-block { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.summary-label { font-size: 10px; color: #90a0b8; }
+.summary-code { font-size: 26px; font-weight: 800; color: #2e7d32; }
+.summary-conf { font-size: 22px; font-weight: 800; color: #1a2a4a; }
+.summary-evidence {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 5px;
-}
-.dot-blue {
-  width: 7px; height: 7px;
-  background: #1565c0;
-  border-radius: 50%;
-}
-.section-sub b { color: #1565c0; }
-
-.adc-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 11px;
-}
-.adc-table th {
-  background: #f0f4fa;
-  color: #607090;
-  font-weight: 600;
-  padding: 4px 8px;
-  text-align: left;
-  font-size: 10px;
-}
-.adc-table td { padding: 4px 8px; border-bottom: 1px solid #f0f4fa; }
-
-.code-chip {
-  background: #e3f2fd;
-  color: #1565c0;
+  font-size: 14px;
   font-weight: 700;
-  font-size: 11px;
-  padding: 1px 6px;
-  border-radius: 3px;
+  color: #1a2a4a;
 }
-.result-chip {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-.result-chip.pass { background: #e8f5e9; color: #2e7d32; }
-.result-chip.fail { background: #ffebee; color: #c62828; }
+.shield-icon { width: 16px; height: 18px; flex-shrink: 0; }
 
-.grade-row {
+.why-section {}
+.why-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a2a4a;
+  margin-bottom: 6px;
+}
+.why-list {
+  margin: 0;
+  padding-left: 18px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: #2c3345;
+}
+
+.caution-box {
   background: #fff8e1;
   border: 1px solid #ffe082;
   border-radius: 6px;
-  padding: 7px 10px;
+  padding: 8px 10px;
 }
-.grade-lbl { font-size: 11px; color: #795548; font-weight: 600; flex: 1; }
-.grade-badge {
-  width: 26px; height: 26px;
-  background: #ff9800;
-  color: white;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 800;
+.caution-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #795548;
+  margin-bottom: 4px;
 }
-.grade-desc { font-size: 11px; color: #795548; }
+.caution-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  color: #795548;
+}
 </style>
