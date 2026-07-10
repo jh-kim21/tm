@@ -30,7 +30,7 @@ const sopRules = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">④</span>
-      <span class="panel-title">근거 Evidence 제시</span>
+      <span class="panel-title">근거 Evidence 카드</span>
     </div>
 
     <div class="body">
@@ -184,6 +184,7 @@ const sopRules = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .panel-header {
@@ -205,6 +206,7 @@ const sopRules = [
   gap: 8px;
   padding: 8px;
   overflow-x: auto;
+  flex: 1;
 }
 
 .ev-card {

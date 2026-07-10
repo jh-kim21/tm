@@ -23,7 +23,7 @@ const adcCases = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">②</span>
-      <span class="panel-title">주천 정보 <span class="sub">(AI Recommendation)</span></span>
+      <span class="panel-title">추천 판정 <span class="sub">(AI Recommendation)</span></span>
     </div>
 
     <div class="body">
@@ -105,6 +105,7 @@ const adcCases = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .panel-header {
@@ -124,7 +125,7 @@ const adcCases = [
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 .panel-title .sub { font-weight: 400; color: #607090; font-size: 11px; }
 
-.body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; }
+.body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; overflow: auto; }
 
 .top-row {
   display: flex;

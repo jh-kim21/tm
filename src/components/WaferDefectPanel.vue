@@ -32,6 +32,18 @@ const thumbnails = [
   { id: 2, label: 'DEF-041', active: false },
   { id: 3, label: 'REF-2A',  active: false },
   { id: 4, label: 'REF-2B',  active: false },
+  { id: 5, label: 'REF-2A',  active: false },
+  { id: 6, label: 'REF-1A',  active: false },
+]
+
+const metaInfo = [
+  { label: 'Location',            value: '(X: 12.53, Y: 8.72)' },
+  { label: 'Defect Size',         value: '0.38um' },
+  { label: 'Defect Class (ADC)',  value: '2B (62.1%)' },
+  { label: 'Review Code',         value: '-' },
+  { label: 'Final Code (History)',value: '-' },
+  { label: 'Reporter',            value: 'Engineer Lee' },
+  { label: 'Review Time',         value: '2026-07-15 10:21:33' },
 ]
 </script>
 
@@ -39,95 +51,100 @@ const thumbnails = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">①</span>
-      <span class="panel-title">WFR Defect 분석</span>
-    </div>
-
-    <div class="lot-bar">
-      <span>LOT: <b>22050615-001</b></span>
-      <span>B132MM</span>
-      <span>STORM</span>
-      <span>M/S: M(A)</span>
-      <span>FLMap: <b>5</b></span>
+      <span class="panel-title">현재 Defect 정보</span>
     </div>
 
     <div class="body">
-      <!-- Wafer Map -->
-      <div class="wafer-section">
-        <div class="sub-label">Wafer Map</div>
-        <svg class="wafer-svg" viewBox="0 0 200 200">
-          <!-- Grid lines -->
-          <defs>
-            <clipPath id="waferClip">
-              <circle cx="100" cy="100" r="83"/>
-            </clipPath>
-          </defs>
-          <g clip-path="url(#waferClip)" opacity="0.15">
-            <line v-for="i in 10" :key="'h'+i" :x1="0" :y1="i*20" :x2="200" :y2="i*20" stroke="#607080" stroke-width="0.5"/>
-            <line v-for="i in 10" :key="'v'+i" :x1="i*20" :y1="0" :x2="i*20" :y2="200" stroke="#607080" stroke-width="0.5"/>
-          </g>
-          <!-- Wafer boundary -->
-          <circle cx="100" cy="100" r="83" fill="#1a2535" stroke="#3a5070" stroke-width="1.5"/>
-          <!-- Notch at bottom -->
-          <path d="M 94 183 Q 100 188 106 183" fill="none" stroke="#3a5070" stroke-width="2"/>
-          <!-- Defect dots -->
-          <g v-for="d in defects" :key="d.cx+','+d.cy">
-            <circle v-if="d.type === 'current'"
-              :cx="d.cx" :cy="d.cy" r="7"
-              fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.9"/>
-            <circle :cx="d.cx" :cy="d.cy" :r="d.type === 'current' ? 4 : 3"
-              :fill="colorMap[d.type]" opacity="0.9"/>
-          </g>
-          <!-- Crosshair on current defect -->
-          <line x1="107" y1="82" x2="123" y2="82" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
-          <line x1="115" y1="74" x2="115" y2="90" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
-        </svg>
-        <div class="legend">
-          <span><i style="background:#f44336"></i>현재 결함</span>
-          <span><i style="background:#ff9800"></i>Major</span>
-          <span><i style="background:#42a5f5"></i>Minor</span>
+      <div class="top-row">
+        <!-- Wafer Map -->
+        <div class="wafer-section">
+          <div class="sub-label">Wafer Map</div>
+          <svg class="wafer-svg" viewBox="0 0 200 200">
+            <!-- Grid lines -->
+            <defs>
+              <clipPath id="waferClip">
+                <circle cx="100" cy="100" r="83"/>
+              </clipPath>
+            </defs>
+            <g clip-path="url(#waferClip)" opacity="0.15">
+              <line v-for="i in 10" :key="'h'+i" :x1="0" :y1="i*20" :x2="200" :y2="i*20" stroke="#607080" stroke-width="0.5"/>
+              <line v-for="i in 10" :key="'v'+i" :x1="i*20" :y1="0" :x2="i*20" :y2="200" stroke="#607080" stroke-width="0.5"/>
+            </g>
+            <!-- Wafer boundary -->
+            <circle cx="100" cy="100" r="83" fill="#1a2535" stroke="#3a5070" stroke-width="1.5"/>
+            <!-- Notch at bottom -->
+            <path d="M 94 183 Q 100 188 106 183" fill="none" stroke="#3a5070" stroke-width="2"/>
+            <!-- Defect dots -->
+            <g v-for="d in defects" :key="d.cx+','+d.cy">
+              <circle v-if="d.type === 'current'"
+                :cx="d.cx" :cy="d.cy" r="7"
+                fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.9"/>
+              <circle :cx="d.cx" :cy="d.cy" :r="d.type === 'current' ? 4 : 3"
+                :fill="colorMap[d.type]" opacity="0.9"/>
+            </g>
+            <!-- Crosshair on current defect -->
+            <line x1="107" y1="82" x2="123" y2="82" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
+            <line x1="115" y1="74" x2="115" y2="90" stroke="#f44336" stroke-width="0.8" opacity="0.7"/>
+          </svg>
+          <div class="legend">
+            <span><i style="background:#f44336"></i>현재 결함</span>
+            <span><i style="background:#ff9800"></i>Major</span>
+            <span><i style="background:#42a5f5"></i>Minor</span>
+          </div>
+          <div class="defect-stat">총 결함: <b>18</b>개 | 현재: <b>DEF-042</b></div>
         </div>
-        <div class="defect-stat">총 결함: <b>18</b>개 | 현재: <b>DEF-042</b></div>
+
+        <!-- Defect Image + Meta -->
+        <div class="image-section">
+          <div class="sub-label">Defect Image</div>
+          <div class="image-row">
+            <div class="def-img-wrap">
+              <svg class="def-img" viewBox="0 0 220 160">
+                <!-- SEM-like image background -->
+                <rect width="220" height="160" fill="#080c10"/>
+                <!-- Circuit pattern lines -->
+                <rect x="0"   y="30"  width="220" height="18" fill="#0e2235" opacity="0.9"/>
+                <rect x="0"   y="72"  width="220" height="14" fill="#0e2235" opacity="0.9"/>
+                <rect x="0"   y="112" width="220" height="18" fill="#0e2235" opacity="0.9"/>
+                <!-- Vertical contacts -->
+                <rect x="22"  y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
+                <rect x="68"  y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
+                <rect x="112" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
+                <rect x="158" y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
+                <rect x="194" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
+                <!-- Bright edges (gates) -->
+                <line x1="0" y1="30"  x2="220" y2="30"  stroke="#4a9acc" stroke-width="1.2"/>
+                <line x1="0" y1="48"  x2="220" y2="48"  stroke="#4a9acc" stroke-width="1.2"/>
+                <line x1="0" y1="72"  x2="220" y2="72"  stroke="#4a9acc" stroke-width="1"/>
+                <line x1="0" y1="86"  x2="220" y2="86"  stroke="#4a9acc" stroke-width="1"/>
+                <line x1="0" y1="112" x2="220" y2="112" stroke="#4a9acc" stroke-width="1.2"/>
+                <line x1="0" y1="130" x2="220" y2="130" stroke="#4a9acc" stroke-width="1.2"/>
+                <!-- Defect area highlight -->
+                <circle cx="118" cy="76" r="18" fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.85"/>
+                <!-- Defect particle -->
+                <ellipse cx="118" cy="76" rx="6" ry="4" fill="#c0392b" opacity="0.9"/>
+                <ellipse cx="121" cy="79" rx="3" ry="2" fill="#e74c3c" opacity="0.7"/>
+                <!-- Scale bar -->
+                <line x1="180" y1="148" x2="210" y2="148" stroke="white" stroke-width="1.5"/>
+                <text x="195" y="157" text-anchor="middle" fill="white" font-size="8">0.5 μm</text>
+                <!-- ADC marker -->
+                <rect x="2" y="2" width="42" height="14" fill="#f44336" rx="2" opacity="0.85"/>
+                <text x="23" y="12" text-anchor="middle" fill="white" font-size="9" font-weight="bold">DEF-042</text>
+              </svg>
+            </div>
+            <div class="meta-list">
+              <div class="meta-row" v-for="m in metaInfo" :key="m.label">
+                <span class="meta-label">{{ m.label }}</span>
+                <span class="meta-value">{{ m.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Defect Image -->
-      <div class="image-section">
-        <div class="sub-label">Defect Image</div>
-        <div class="def-img-wrap">
-          <svg class="def-img" viewBox="0 0 220 160">
-            <!-- SEM-like image background -->
-            <rect width="220" height="160" fill="#080c10"/>
-            <!-- Circuit pattern lines -->
-            <rect x="0"   y="30"  width="220" height="18" fill="#0e2235" opacity="0.9"/>
-            <rect x="0"   y="72"  width="220" height="14" fill="#0e2235" opacity="0.9"/>
-            <rect x="0"   y="112" width="220" height="18" fill="#0e2235" opacity="0.9"/>
-            <!-- Vertical contacts -->
-            <rect x="22"  y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-            <rect x="68"  y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
-            <rect x="112" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-            <rect x="158" y="25" width="10" height="110" fill="#122a40" opacity="0.8"/>
-            <rect x="194" y="25" width="14" height="110" fill="#122a40" opacity="0.8"/>
-            <!-- Bright edges (gates) -->
-            <line x1="0" y1="30"  x2="220" y2="30"  stroke="#4a9acc" stroke-width="1.2"/>
-            <line x1="0" y1="48"  x2="220" y2="48"  stroke="#4a9acc" stroke-width="1.2"/>
-            <line x1="0" y1="72"  x2="220" y2="72"  stroke="#4a9acc" stroke-width="1"/>
-            <line x1="0" y1="86"  x2="220" y2="86"  stroke="#4a9acc" stroke-width="1"/>
-            <line x1="0" y1="112" x2="220" y2="112" stroke="#4a9acc" stroke-width="1.2"/>
-            <line x1="0" y1="130" x2="220" y2="130" stroke="#4a9acc" stroke-width="1.2"/>
-            <!-- Defect area highlight -->
-            <circle cx="118" cy="76" r="18" fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.85"/>
-            <!-- Defect particle -->
-            <ellipse cx="118" cy="76" rx="6" ry="4" fill="#c0392b" opacity="0.9"/>
-            <ellipse cx="121" cy="79" rx="3" ry="2" fill="#e74c3c" opacity="0.7"/>
-            <!-- Scale bar -->
-            <line x1="180" y1="148" x2="210" y2="148" stroke="white" stroke-width="1.5"/>
-            <text x="195" y="157" text-anchor="middle" fill="white" font-size="8">0.5 μm</text>
-            <!-- ADC marker -->
-            <rect x="2" y="2" width="42" height="14" fill="#f44336" rx="2" opacity="0.85"/>
-            <text x="23" y="12" text-anchor="middle" fill="white" font-size="9" font-weight="bold">DEF-042</text>
-          </svg>
-        </div>
-
-        <!-- Thumbnail strip -->
+      <!-- Image Gallery -->
+      <div class="gallery-section">
+        <div class="sub-label">Image Gallery</div>
         <div class="thumb-strip">
           <div v-for="t in thumbnails" :key="t.id" :class="['thumb', { active: t.active }]">
             <svg viewBox="0 0 60 44">
@@ -179,29 +196,34 @@ const thumbnails = [
 }
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 
-.lot-bar {
-  display: flex;
-  gap: 10px;
-  padding: 4px 12px;
-  background: #f0f4fa;
-  font-size: 10px;
-  color: #4a5a72;
-  border-bottom: 1px solid #e4e9f0;
-  flex-wrap: wrap;
-}
-.lot-bar b { color: #1565c0; }
-
 .body {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   flex: 1;
+  padding: 8px 10px;
   overflow: auto;
 }
 
-.wafer-section, .image-section {
-  padding: 8px 10px;
+.top-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
 }
-.wafer-section { border-bottom: 1px solid #eef1f7; }
+
+.wafer-section {
+  flex: 0 0 190px;
+}
+
+.image-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.gallery-section {
+  border-top: 1px solid #eef1f7;
+  padding-top: 8px;
+}
 
 .sub-label {
   font-size: 10px;
@@ -214,8 +236,37 @@ const thumbnails = [
 
 .wafer-svg {
   width: 100%;
-  max-height: 175px;
+  max-height: 155px;
   display: block;
+}
+
+.image-row {
+  display: flex;
+  gap: 8px;
+}
+
+.meta-list {
+  flex: 0 0 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.meta-label {
+  font-size: 9px;
+  color: #90a0b8;
+}
+
+.meta-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a2a4a;
 }
 
 .legend {
@@ -241,6 +292,8 @@ const thumbnails = [
 .defect-stat b { color: #1565c0; }
 
 .def-img-wrap {
+  flex: 1;
+  min-width: 0;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #1a3a5a;

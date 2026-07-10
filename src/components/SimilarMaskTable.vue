@@ -37,7 +37,7 @@ const rows = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">⑤</span>
-      <span class="panel-title">유사마스크 Top 5</span>
+      <span class="panel-title">유사사례 Top 5</span>
       <span class="header-note">DEF-042 기준 | 유사도 순 정렬</span>
     </div>
 
@@ -120,6 +120,7 @@ const rows = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .panel-header {
@@ -137,7 +138,7 @@ const rows = [
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; flex: 1; }
 .header-note { font-size: 10px; color: #90a0b8; }
 
-.table-wrap { overflow-x: auto; }
+.table-wrap { overflow: auto; flex: 1; }
 
 table {
   width: 100%;

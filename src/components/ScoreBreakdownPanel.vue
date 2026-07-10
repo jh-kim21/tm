@@ -15,7 +15,7 @@ const criteria = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">③</span>
-      <span class="panel-title">수신 정수 비교 <span class="sub">(Score Breakdown)</span></span>
+      <span class="panel-title">추천 점수 구성 <span class="sub">(Score Breakdown)</span></span>
     </div>
 
     <div class="body">
@@ -63,6 +63,7 @@ const criteria = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .panel-header {
@@ -80,7 +81,7 @@ const criteria = [
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 .panel-title .sub { font-weight: 400; color: #607090; font-size: 11px; }
 
-.body { padding: 12px; display: flex; flex-direction: column; gap: 14px; }
+.body { padding: 12px; display: flex; flex-direction: column; gap: 14px; flex: 1; overflow: auto; }
 
 .total-score {
   display: flex;

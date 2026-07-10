@@ -1,5 +1,6 @@
 <script setup>
 import NavHeader from '../components/NavHeader.vue'
+import ContextBar from '../components/ContextBar.vue'
 import WaferDefectPanel from '../components/WaferDefectPanel.vue'
 import AIRecommendationPanel from '../components/AIRecommendationPanel.vue'
 import ScoreBreakdownPanel from '../components/ScoreBreakdownPanel.vue'
@@ -12,6 +13,7 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
 <template>
   <div class="page">
     <NavHeader />
+    <ContextBar />
     <div class="content-grid">
       <section class="area-wfr">
         <WaferDefectPanel />
@@ -47,16 +49,16 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
 
 .content-grid {
   display: grid;
-  grid-template-columns: 255px 1fr 290px;
-  grid-template-rows: auto auto auto auto;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto auto auto;
   grid-template-areas:
-    "wfr  ai      score"
-    "wfr  evi     score"
-    "wfr  similar audit"
-    "wfr  sop     audit";
+    "wfr     wfr     wfr     wfr     wfr     ai      ai      ai      ai      score   score   score"
+    "evi     evi     evi     evi     evi     evi     evi     evi     evi     evi     evi     evi"
+    "similar similar similar similar similar similar sop     sop     sop     audit   audit   audit";
   gap: 8px;
   padding: 8px;
   flex: 1;
+  align-items: stretch;
 }
 
 .area-wfr     { grid-area: wfr; }

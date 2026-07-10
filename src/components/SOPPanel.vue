@@ -25,7 +25,7 @@ const relatedSOP = [
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">⑥</span>
-      <span class="panel-title">SOP / 세부 근거 정보</span>
+      <span class="panel-title">SOP / 메일 근거 원문</span>
     </div>
 
     <div class="body">
@@ -76,6 +76,7 @@ const relatedSOP = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .panel-header {
@@ -92,7 +93,7 @@ const relatedSOP = [
 }
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 
-.body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; }
+.body { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; overflow: auto; }
 
 .sop-meta {
   background: #f0f4fa;

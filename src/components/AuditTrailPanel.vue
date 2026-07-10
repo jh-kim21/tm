@@ -57,7 +57,7 @@ function submit() {
   <div class="panel">
     <div class="panel-header">
       <span class="badge-num">⑦</span>
-      <span class="panel-title">판정 작성 <span class="sub">& Audit Trail</span></span>
+      <span class="panel-title">판정 이력 <span class="sub">& Audit Trail</span></span>
     </div>
 
     <div class="body">

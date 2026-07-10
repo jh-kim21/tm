@@ -18,7 +18,7 @@ const navItems = [
         <polygon points="11,4 17,7.5 17,14.5 11,18 5,14.5 5,7.5" fill="#0288d1"/>
         <circle cx="11" cy="11" r="3" fill="white" opacity="0.9"/>
       </svg>
-      <span class="logo-text">Klear<b>-view</b></span>
+      <span class="logo-text">AEGIS</span>
     </div>
 
     <nav class="nav-items">
