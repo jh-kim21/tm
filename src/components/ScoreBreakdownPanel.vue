@@ -82,7 +82,7 @@ const axisTicks = [-20, -10, 0, 10, 20, 30, 40, 50]
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 .panel-title .sub { font-weight: 400; color: #607090; font-size: 11px; }
 
-.body { padding: 12px; display: flex; flex-direction: column; gap: 12px; flex: 1; overflow: auto; }
+.body { padding: 16px; display: flex; flex-direction: column; gap: 16px; flex: 1; overflow: auto; }
 
 .total-row {
   display: flex;
@@ -90,8 +90,8 @@ const axisTicks = [-20, -10, 0, 10, 20, 30, 40, 50]
   justify-content: space-between;
 }
 .total-label { font-size: 12px; color: #607090; font-weight: 600; }
-.total-val { font-size: 22px; font-weight: 800; color: #1a2a4a; }
-.total-max { font-size: 12px; font-weight: 400; color: #90a0b8; }
+.total-val { font-size: 28px; font-weight: 800; color: #1565c0; }
+.total-max { font-size: 13px; font-weight: 400; color: #90a0b8; }
 
 .criteria-list { display: flex; flex-direction: column; gap: 10px; }
 

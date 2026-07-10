@@ -19,27 +19,6 @@ const cautions = [
     </div>
 
     <div class="body">
-      <div class="summary-row">
-        <div class="summary-block">
-          <div class="summary-label">Recommended Code</div>
-          <div class="summary-code">2A</div>
-        </div>
-        <div class="summary-block">
-          <div class="summary-label">Confidence</div>
-          <div class="summary-conf">91.8%</div>
-        </div>
-        <div class="summary-block">
-          <div class="summary-label">Evidence Level</div>
-          <div class="summary-evidence">
-            <svg viewBox="0 0 20 22" class="shield-icon">
-              <path d="M10 1 L18 4 V10 C18 15 14.5 19 10 21 C5.5 19 2 15 2 10 V4 Z" fill="#1565c0"/>
-              <path d="M6 10.5 L9 13.5 L14 7.5" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Strong</span>
-          </div>
-        </div>
-      </div>
-
       <div class="why-section">
         <div class="why-title">왜 2A인가? (요약)</div>
         <ol class="why-list">
@@ -85,41 +64,23 @@ const cautions = [
 .panel-title { font-size: 12px; font-weight: 700; color: #1a2a4a; }
 .panel-title .sub { font-weight: 400; color: #607090; font-size: 11px; }
 
-.body { padding: 12px; display: flex; flex-direction: column; gap: 14px; flex: 1; overflow: auto; }
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-.summary-block { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
-.summary-label { font-size: 10px; color: #90a0b8; }
-.summary-code { font-size: 26px; font-weight: 800; color: #2e7d32; }
-.summary-conf { font-size: 22px; font-weight: 800; color: #1a2a4a; }
-.summary-evidence {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a2a4a;
-}
-.shield-icon { width: 16px; height: 18px; flex-shrink: 0; }
+.body { padding: 16px; display: flex; flex-direction: column; gap: 18px; flex: 1; overflow: auto; }
 
 .why-section {}
 .why-title {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #1a2a4a;
-  margin-bottom: 6px;
+  margin-bottom: 9px;
 }
 .why-list {
   margin: 0;
   padding-left: 18px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-size: 11px;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.5;
   color: #2c3345;
 }
 
@@ -127,21 +88,22 @@ const cautions = [
   background: #fff8e1;
   border: 1px solid #ffe082;
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 10px 12px;
 }
 .caution-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #795548;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .caution-list {
   margin: 0;
   padding-left: 16px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  font-size: 11px;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 1.5;
   color: #795548;
 }
 </style>
