@@ -1,6 +1,4 @@
 <script setup>
-import { reactive } from 'vue'
-
 const conditionRows = [
   { field: 'Same Device',      value: 'Yes' },
   { field: 'Same Layer',       value: 'Yes' },
@@ -21,9 +19,6 @@ const distribution = [
   { label: 'Hold',  count: 1,  pct: 2,  color: '#fbc02d' },
   { label: 'Other', count: 1,  pct: 2,  color: '#9e9e9e' },
 ]
-
-const expanded = reactive({ 1: false, 2: false, 3: false, 4: false, 5: false })
-function toggle(id) { expanded[id] = !expanded[id] }
 </script>
 
 <template>
@@ -36,112 +31,83 @@ function toggle(id) { expanded[id] = !expanded[id] }
     <div class="body">
       <!-- Evidence 1: Image Similarity -->
       <div class="ev-card">
-        <button class="ev-head" @click="toggle(1)">
-          <span class="ev-title"><span class="ev-dot"/>Evidence 1. 이미지 유사도</span>
-          <svg class="chevron" :class="{ open: expanded[1] }" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="#607090" stroke-width="1.6"/></svg>
-        </button>
-        <div class="ev-summary">Top1 유사도 <b>98.1%</b></div>
-        <div class="ev-detail" v-show="expanded[1]">
-          <div class="kv-rows">
-            <div class="kv-row"><span class="kv-key">Image Similarity (Top1)</span><span class="kv-val">98.1%</span></div>
-            <div class="kv-row"><span class="kv-key">Top 5 평균 유사도</span><span class="kv-val">96.4%</span></div>
-          </div>
-          <div class="ev-note">유사사례 5건 모두 Final Code 2A</div>
-          <div class="ev-btn-row">
-            <button class="ev-btn">유사 이미지 보기</button>
-            <button class="ev-btn">Overlay 비교</button>
-          </div>
+        <div class="ev-title"><span class="ev-dot"/>Evidence 1. 이미지 유사도</div>
+        <div class="kv-rows">
+          <div class="kv-row"><span class="kv-key">Image Similarity (Top1)</span><span class="kv-val">98.1%</span></div>
+          <div class="kv-row"><span class="kv-key">Top 5 평균 유사도</span><span class="kv-val">96.4%</span></div>
+        </div>
+        <div class="ev-note">유사사례 5건 모두 Final Code 2A</div>
+        <div class="ev-btn-row">
+          <button class="ev-btn">유사 이미지 보기</button>
+          <button class="ev-btn">Overlay 비교</button>
         </div>
       </div>
 
       <!-- Evidence 2: Same-condition history -->
       <div class="ev-card">
-        <button class="ev-head" @click="toggle(2)">
-          <span class="ev-title"><span class="ev-dot"/>Evidence 2. 동일 조건 이력</span>
-          <svg class="chevron" :class="{ open: expanded[2] }" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="#607090" stroke-width="1.6"/></svg>
-        </button>
-        <div class="ev-summary">42건 중 <b>39건</b>이 2A</div>
-        <div class="ev-detail" v-show="expanded[2]">
-          <div class="kv-rows">
-            <div class="kv-row" v-for="c in conditionRows" :key="c.field">
-              <span class="kv-key">{{ c.field }}</span><span class="kv-val">{{ c.value }}</span>
-            </div>
+        <div class="ev-title"><span class="ev-dot"/>Evidence 2. 동일 조건 이력</div>
+        <div class="kv-rows">
+          <div class="kv-row" v-for="c in conditionRows" :key="c.field">
+            <span class="kv-key">{{ c.field }}</span><span class="kv-val">{{ c.value }}</span>
           </div>
-          <div class="ev-note">동일 조건 사례 42건 중 39건이 2A</div>
-          <div class="ev-btn-row">
-            <button class="ev-btn">조건별 통계 보기</button>
-          </div>
+        </div>
+        <div class="ev-note">동일 조건 사례 42건 중 39건이 2A</div>
+        <div class="ev-btn-row">
+          <button class="ev-btn">조건별 통계 보기</button>
         </div>
       </div>
 
       <!-- Evidence 3: SOP Rule -->
       <div class="ev-card">
-        <button class="ev-head" @click="toggle(3)">
-          <span class="ev-title"><span class="ev-dot"/>Evidence 3. SOP Rule</span>
-          <svg class="chevron" :class="{ open: expanded[3] }" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="#607090" stroke-width="1.6"/></svg>
-        </button>
-        <div class="ev-summary">M3 Hairline Defect <b>→ 2A</b></div>
-        <div class="ev-detail" v-show="expanded[3]">
-          <div class="kv-rows">
-            <div class="kv-row" v-for="s in sopRows" :key="s.field">
-              <span class="kv-key">{{ s.field }}</span><span class="kv-val">{{ s.value }}</span>
-            </div>
+        <div class="ev-title"><span class="ev-dot"/>Evidence 3. SOP Rule</div>
+        <div class="kv-rows">
+          <div class="kv-row" v-for="s in sopRows" :key="s.field">
+            <span class="kv-key">{{ s.field }}</span><span class="kv-val">{{ s.value }}</span>
           </div>
-          <div class="ev-btn-row">
-            <button class="ev-btn">원문 보기</button>
-            <button class="ev-btn">관련 SOP 보기</button>
-          </div>
+        </div>
+        <div class="ev-btn-row">
+          <button class="ev-btn">원문 보기</button>
+          <button class="ev-btn">관련 SOP 보기</button>
         </div>
       </div>
 
       <!-- Evidence 4: Final judgment distribution -->
       <div class="ev-card">
-        <button class="ev-head" @click="toggle(4)">
-          <span class="ev-title"><span class="ev-dot"/>Evidence 4. 최종 판정 분포</span>
-          <svg class="chevron" :class="{ open: expanded[4] }" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="#607090" stroke-width="1.6"/></svg>
-        </button>
-        <div class="ev-summary">2A <b>88%</b> (44건 / 50건)</div>
-        <div class="ev-detail" v-show="expanded[4]">
-          <div class="ev-note">유사사례 50건 기준</div>
-          <div class="dist-rows">
-            <div class="dist-row" v-for="d in distribution" :key="d.label">
-              <span class="dist-label">{{ d.label }}</span>
-              <div class="dist-bar-track">
-                <div class="dist-bar-fill" :style="{ width: d.pct + '%', background: d.color }"/>
-              </div>
-              <span class="dist-count">{{ d.count }} ({{ d.pct }}%)</span>
+        <div class="ev-title"><span class="ev-dot"/>Evidence 4. 최종 판정 분포</div>
+        <div class="ev-note">유사사례 50건 기준</div>
+        <div class="dist-rows">
+          <div class="dist-row" v-for="d in distribution" :key="d.label">
+            <span class="dist-label">{{ d.label }}</span>
+            <div class="dist-bar-track">
+              <div class="dist-bar-fill" :style="{ width: d.pct + '%', background: d.color }"/>
             </div>
+            <span class="dist-count">{{ d.count }} ({{ d.pct }}%)</span>
           </div>
-          <div class="ev-btn-row">
-            <button class="ev-btn">분포 상세 보기</button>
-          </div>
+        </div>
+        <div class="ev-btn-row">
+          <button class="ev-btn">분포 상세 보기</button>
         </div>
       </div>
 
       <!-- Evidence 5: Counter-cases / exceptions -->
       <div class="ev-card">
-        <button class="ev-head" @click="toggle(5)">
-          <span class="ev-title"><span class="ev-dot"/>Evidence 5. 반대 사례 / 예외</span>
-          <svg class="chevron" :class="{ open: expanded[5] }" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="#607090" stroke-width="1.6"/></svg>
-        </button>
-        <div class="ev-summary">반대 사례 <b>2건</b> 존재</div>
-        <div class="ev-detail" v-show="expanded[5]">
-          <ul class="exception-list">
-            <li>2B 판정 사례
-              <ul>
-                <li>Size 1.8x larger</li>
-                <li>Critical Area 위치</li>
-              </ul>
-            </li>
-            <li>ADC 2B 제안 (62.1%)
-              <ul>
-                <li>해당 조건에서 ADC 오분류율 18%</li>
-              </ul>
-            </li>
-          </ul>
-          <div class="ev-btn-row">
-            <button class="ev-btn">반대 사례 보기</button>
-          </div>
+        <div class="ev-title"><span class="ev-dot"/>Evidence 5. 반대 사례 / 예외</div>
+        <div class="ev-note">반대 사례 2건 존재</div>
+        <ul class="exception-list">
+          <li>2B 판정 사례
+            <ul>
+              <li>Size 1.8x larger</li>
+              <li>Critical Area 위치</li>
+            </ul>
+          </li>
+          <li>ADC 2B 제안 (62.1%)
+            <ul>
+              <li>해당 조건에서 ADC 오분류율 18%</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="ev-btn-row">
+          <button class="ev-btn">반대 사례 보기</button>
         </div>
       </div>
     </div>
@@ -164,6 +130,7 @@ function toggle(id) { expanded[id] = !expanded[id] }
   padding: 8px 12px 6px;
   border-bottom: 1px solid #eef1f7;
   background: #f8fafd;
+  flex-shrink: 0;
 }
 .badge-num {
   display: inline-flex; align-items: center; justify-content: center;
@@ -175,15 +142,17 @@ function toggle(id) { expanded[id] = !expanded[id] }
 
 .body {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 12px;
   padding: 10px;
-  overflow-y: auto;
+  overflow-x: auto;
   flex: 1;
 }
 
 .ev-card {
-  flex: 0 0 auto;
+  flex: 1 1 0;
+  min-width: 200px;
   background: #f8fafd;
   border: 1px solid #e4e9f4;
   border-radius: 6px;
@@ -192,21 +161,6 @@ function toggle(id) { expanded[id] = !expanded[id] }
   flex-direction: column;
   gap: 8px;
 }
-
-.ev-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-}
-.chevron { width: 10px; height: 7px; flex-shrink: 0; transition: transform 0.15s; }
-.chevron.open { transform: rotate(180deg); }
 
 .ev-title {
   font-size: 11.5px;
@@ -221,20 +175,6 @@ function toggle(id) { expanded[id] = !expanded[id] }
   border-radius: 50%;
   background: #1565c0;
   flex-shrink: 0;
-}
-
-.ev-summary {
-  font-size: 13px;
-  color: #2c3345;
-}
-.ev-summary b { color: #1565c0; font-weight: 800; }
-
-.ev-detail {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 4px;
-  border-top: 1px dashed #dde3ee;
 }
 
 .kv-rows { display: flex; flex-direction: column; gap: 4px; }
@@ -315,9 +255,8 @@ function toggle(id) { expanded[id] = !expanded[id] }
   .badge-num { width: 14px; height: 14px; font-size: 9px; }
   .panel-title { font-size: 10px; }
   .body { padding: 6px; gap: 6px; }
-  .ev-card { padding: 6px; gap: 5px; }
+  .ev-card { padding: 6px; gap: 5px; min-width: 0; }
   .ev-title { font-size: 10px; }
-  .ev-summary { font-size: 11px; }
   .ev-btn-row { display: none; }
 }
 </style>

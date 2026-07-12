@@ -1,9 +1,9 @@
 <script setup>
 import NavHeader from '../components/NavHeader.vue'
 import ContextBar from '../components/ContextBar.vue'
-import VerdictBanner from '../components/VerdictBanner.vue'
 import WaferDefectPanel from '../components/WaferDefectPanel.vue'
 import AIScorePanel from '../components/AIScorePanel.vue'
+import ScoreBreakdownPanel from '../components/ScoreBreakdownPanel.vue'
 import EvidencePanel from '../components/EvidencePanel.vue'
 import SimilarMaskTable from '../components/SimilarMaskTable.vue'
 import SOPPanel from '../components/SOPPanel.vue'
@@ -14,26 +14,20 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
   <div class="page">
     <NavHeader />
     <ContextBar />
-    <VerdictBanner />
     <div class="content-grid">
-      <section class="area-wfr">
-        <WaferDefectPanel />
-      </section>
-      <section class="area-aisc">
-        <AIScorePanel />
-      </section>
-      <section class="area-evi">
-        <EvidencePanel />
-      </section>
-      <section class="area-similar">
-        <SimilarMaskTable />
-      </section>
-      <section class="area-sop">
-        <SOPPanel />
-      </section>
-      <section class="area-audit">
-        <AuditTrailPanel />
-      </section>
+      <div class="row row-1">
+        <section class="col-wfr"><WaferDefectPanel /></section>
+        <section class="col-aisc"><AIScorePanel /></section>
+        <section class="col-score"><ScoreBreakdownPanel /></section>
+      </div>
+      <div class="row row-2">
+        <section class="col-evi"><EvidencePanel /></section>
+      </div>
+      <div class="row row-3">
+        <section class="col-similar"><SimilarMaskTable /></section>
+        <section class="col-sop"><SOPPanel /></section>
+        <section class="col-audit"><AuditTrailPanel /></section>
+      </div>
     </div>
   </div>
 </template>
@@ -46,28 +40,36 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
 }
 
 .content-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto auto auto;
-  grid-template-areas:
-    "wfr     wfr     wfr     wfr     wfr     aisc    aisc    aisc    aisc    evi     evi     evi"
-    "similar similar similar similar similar similar sop     sop     sop     evi     evi     evi"
-    "audit   audit   audit   audit   audit   audit   audit   audit   audit   evi     evi     evi";
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   padding: 12px;
   flex: 1;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
   align-items: stretch;
 }
 
-.area-wfr     { grid-area: wfr; }
-.area-aisc    { grid-area: aisc; }
-.area-evi     { grid-area: evi; }
-.area-similar { grid-area: similar; }
-.area-sop     { grid-area: sop; }
-.area-audit   { grid-area: audit; }
+.row-1 { flex: 1.55; min-height: 0; }
+.row-2 { flex: 1; min-height: 0; }
+.row-3 { flex: 1.4; min-height: 0; }
+
+.col-wfr   { flex: 49; min-width: 0; }
+.col-aisc  { flex: 27; min-width: 0; }
+.col-score { flex: 24; min-width: 0; }
+
+.col-evi { flex: 1; min-width: 0; }
+
+.col-similar { flex: 62; min-width: 0; }
+.col-sop     { flex: 19; min-width: 0; }
+.col-audit   { flex: 19; min-width: 0; }
 
 @media print {
   @page { size: landscape; margin: 8mm; }
   .content-grid { gap: 6px; padding: 6px; }
+  .row { gap: 6px; }
 }
 </style>

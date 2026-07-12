@@ -6,7 +6,6 @@ const navItems = [
   { label: 'SOP Center', active: false },
   { label: 'Analytics', active: false },
   { label: 'Admin', active: false },
-  { label: 'Final Judge', active: false },
 ]
 </script>
 
@@ -34,6 +33,13 @@ const navItems = [
           <path d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2z"/>
         </svg>
         <span class="badge">3</span>
+      </button>
+      <button class="icon-btn" title="도움말">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.5 9a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 2-2.4 3.7" stroke-linecap="round"/>
+          <circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
       </button>
       <div class="user-info">
         <div class="avatar">EK</div>
