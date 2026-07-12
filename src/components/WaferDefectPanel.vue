@@ -334,4 +334,16 @@ const metaInfo = [
 .thumb-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
 .thumb span { font-size: 9px; color: #607090; }
 .thumb.active span { color: #1565c0; font-weight: 600; }
+
+@media print {
+  .panel-header { padding: 4px 8px 3px; }
+  .badge-num { width: 14px; height: 14px; font-size: 9px; }
+  .panel-title { font-size: 10px; }
+  .body { padding: 5px 8px; gap: 5px; }
+  .wafer-section { flex: 0 0 130px; }
+  .wafer-svg { max-height: 105px; }
+  .meta-list { flex: 0 0 130px; gap: 2px; }
+  .gallery-section { padding-top: 5px; }
+  .thumb-strip { margin-top: 4px; }
+}
 </style>

@@ -175,15 +175,15 @@ function toggle(id) { expanded[id] = !expanded[id] }
 
 .body {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
   padding: 10px;
-  overflow-x: auto;
+  overflow-y: auto;
   flex: 1;
 }
 
 .ev-card {
-  flex: 1;
-  min-width: 190px;
+  flex: 0 0 auto;
   background: #f8fafd;
   border: 1px solid #e4e9f4;
   border-radius: 6px;
@@ -308,5 +308,16 @@ function toggle(id) { expanded[id] = !expanded[id] }
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+@media print {
+  .panel-header { padding: 4px 8px 3px; }
+  .badge-num { width: 14px; height: 14px; font-size: 9px; }
+  .panel-title { font-size: 10px; }
+  .body { padding: 6px; gap: 6px; }
+  .ev-card { padding: 6px; gap: 5px; }
+  .ev-title { font-size: 10px; }
+  .ev-summary { font-size: 11px; }
+  .ev-btn-row { display: none; }
 }
 </style>

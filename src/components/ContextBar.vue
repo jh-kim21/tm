@@ -73,4 +73,11 @@ const fields = [
   transition: all 0.15s;
 }
 .nav-btn:hover { border-color: #1565c0; color: #1565c0; }
+
+@media print {
+  .context-bar { padding: 4px 10px; gap: 12px; }
+  .label { font-size: 8px; }
+  .value { font-size: 10px; }
+  .nav-btns { display: none; }
+}
 </style>

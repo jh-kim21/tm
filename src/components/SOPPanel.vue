@@ -244,4 +244,17 @@ const relatedSOP = [
   white-space: nowrap;
 }
 .related-desc { color: #607090; }
+
+@media print {
+  .panel-header { padding: 4px 8px 3px; }
+  .badge-num { width: 14px; height: 14px; font-size: 9px; }
+  .panel-title { font-size: 10px; }
+  .tabs { padding: 3px 8px 0; }
+  .tab-btn { padding: 3px 8px; }
+  .body { padding: 6px 8px; gap: 6px; }
+  .mail-body-section { padding: 5px 7px; }
+  .mail-body-text { line-height: 1.35; }
+  .cond-table thead th, .cond-table td { padding: 3px 6px; }
+  .ev-btn-row { display: none; }
+}
 </style>

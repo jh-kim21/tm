@@ -79,4 +79,12 @@ const evidenceLevel = 'Strong'
   height: 26px;
   background: rgba(255,255,255,0.25);
 }
+
+@media print {
+  .verdict-banner { padding: 6px 12px; gap: 12px; }
+  .verdict-code-val { font-size: 18px; }
+  .verdict-conf-val { font-size: 15px; }
+  .verdict-evidence-val { font-size: 12px; }
+  .verdict-divider { height: 18px; }
+}
 </style>

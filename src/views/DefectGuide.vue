@@ -3,8 +3,7 @@ import NavHeader from '../components/NavHeader.vue'
 import ContextBar from '../components/ContextBar.vue'
 import VerdictBanner from '../components/VerdictBanner.vue'
 import WaferDefectPanel from '../components/WaferDefectPanel.vue'
-import AIRecommendationPanel from '../components/AIRecommendationPanel.vue'
-import ScoreBreakdownPanel from '../components/ScoreBreakdownPanel.vue'
+import AIScorePanel from '../components/AIScorePanel.vue'
 import EvidencePanel from '../components/EvidencePanel.vue'
 import SimilarMaskTable from '../components/SimilarMaskTable.vue'
 import SOPPanel from '../components/SOPPanel.vue'
@@ -20,11 +19,8 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
       <section class="area-wfr">
         <WaferDefectPanel />
       </section>
-      <section class="area-ai">
-        <AIRecommendationPanel />
-      </section>
-      <section class="area-score">
-        <ScoreBreakdownPanel />
+      <section class="area-aisc">
+        <AIScorePanel />
       </section>
       <section class="area-evi">
         <EvidencePanel />
@@ -54,9 +50,9 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto auto auto;
   grid-template-areas:
-    "wfr     wfr     wfr     wfr     wfr     ai      ai      ai      ai      score   score   score"
-    "evi     evi     evi     evi     evi     evi     evi     evi     evi     evi     evi     evi"
-    "similar similar similar similar similar similar sop     sop     sop     audit   audit   audit";
+    "wfr     wfr     wfr     wfr     wfr     aisc    aisc    aisc    aisc    evi     evi     evi"
+    "similar similar similar similar similar similar sop     sop     sop     evi     evi     evi"
+    "audit   audit   audit   audit   audit   audit   audit   audit   audit   evi     evi     evi";
   gap: 12px;
   padding: 12px;
   flex: 1;
@@ -64,10 +60,14 @@ import AuditTrailPanel from '../components/AuditTrailPanel.vue'
 }
 
 .area-wfr     { grid-area: wfr; }
-.area-ai      { grid-area: ai; }
-.area-score   { grid-area: score; }
+.area-aisc    { grid-area: aisc; }
 .area-evi     { grid-area: evi; }
 .area-similar { grid-area: similar; }
 .area-sop     { grid-area: sop; }
 .area-audit   { grid-area: audit; }
+
+@media print {
+  @page { size: landscape; margin: 8mm; }
+  .content-grid { gap: 6px; padding: 6px; }
+}
 </style>

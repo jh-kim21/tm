@@ -349,4 +349,17 @@ textarea:disabled { background: #f8fafd; color: #90a0b8; }
 .log-time { font-size: 9px; color: #a0b0c0; }
 .log-action { font-size: 11px; font-weight: 600; color: #2c3345; }
 .log-detail { font-size: 10px; color: #607090; margin-top: 1px; }
+
+@media print {
+  .panel-header { padding: 4px 8px 3px; }
+  .badge-num { width: 14px; height: 14px; font-size: 9px; }
+  .panel-title { font-size: 10px; }
+  .body { padding: 6px 8px; gap: 7px; }
+  .form-section { gap: 5px; }
+  .code-btn, .grade-btn { padding: 2px 6px; }
+  textarea { padding: 4px 6px; height: 40px; }
+  .submit-btn { display: none; }
+  .log-entry { padding: 2px 0; }
+  .log-content { padding-bottom: 4px; }
+}
 </style>

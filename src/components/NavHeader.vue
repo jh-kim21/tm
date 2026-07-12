@@ -144,4 +144,11 @@ const navItems = [
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; color: white;
 }
+
+@media print {
+  .nav-header { height: 30px; padding: 0 10px; }
+  .logo { font-size: 12px; min-width: 90px; }
+  .nav-item { padding: 3px 8px; font-size: 10px; }
+  .icon-btn, .user-info { display: none; }
+}
 </style>

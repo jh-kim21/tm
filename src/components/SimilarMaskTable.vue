@@ -10,7 +10,6 @@ const rows = [
     rank: 1, score: 98.1, code: '2A', img: simcase1,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask, Pattern\nSize 유사',
-    diff: 'WF Process 1단계 차이\n위치 320um 차이',
     comment: 'Pattern edge hairline.\nCustomer 기준상 2A 처리.',
     date: '2026-06-21',
     highlight: false,
@@ -19,7 +18,6 @@ const rows = [
     rank: 2, score: 97.4, code: '2A', img: simcase2,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask,  Device\nPattern 유사',
-    diff: 'WF Process 동일\n위치 150um 차이',
     comment: '동일 조건 재발 사례.\n2A 유지.',
     date: '2026-06-18',
     highlight: false,
@@ -28,7 +26,6 @@ const rows = [
     rank: 3, score: 95.9, code: '2A', img: simcase3,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask 동일\nSize 유사',
-    diff: 'WF Process 2단계 차이',
     comment: 'Hairline 유형. 영향 없음.',
     date: '2026-06-15',
     highlight: false,
@@ -37,7 +34,6 @@ const rows = [
     rank: 4, score: 94.8, code: '2B', img: simcase4,
     layerMaskDevice: 'M3 / M3A / D128M',
     same: 'Layer, Mask 동일\nPattern 유사',
-    diff: 'Size 1.8x larger\nCritical Area 위치',
     comment: '크기가 커서 2B 처리.',
     date: '2026-06-10',
     highlight: true,
@@ -46,7 +42,6 @@ const rows = [
     rank: 5, score: 93.7, code: '2A', img: simcase5,
     layerMaskDevice: 'M3 / M3A / D256M',
     same: 'Mask, Pattern 유사',
-    diff: 'Device 다름\nWF Process 1단계 차이',
     comment: '유사하나 Device 다름.',
     date: '2026-06-08',
     highlight: false,
@@ -70,7 +65,6 @@ const rows = [
             <th>Final Code</th>
             <th>Layer / Mask / Device</th>
             <th>같은 점 (주요)</th>
-            <th>다른 점</th>
             <th>Engineer Comment</th>
             <th>Date</th>
           </tr>
@@ -102,7 +96,6 @@ const rows = [
             </td>
             <td class="td-mono">{{ r.layerMaskDevice }}</td>
             <td class="td-multiline">{{ r.same }}</td>
-            <td class="td-multiline">{{ r.diff }}</td>
             <td class="td-multiline td-comment">{{ r.comment }}</td>
             <td class="td-date">{{ r.date }}</td>
           </tr>
@@ -231,4 +224,14 @@ td { padding: 6px 8px; vertical-align: middle; }
   transition: all 0.15s;
 }
 .more-btn:hover { border-color: #1565c0; color: #1565c0; }
+
+@media print {
+  .panel-header { padding: 4px 8px 3px; }
+  .badge-num { width: 14px; height: 14px; font-size: 9px; }
+  .panel-title { font-size: 10px; }
+  thead th { padding: 4px 6px; }
+  td { padding: 4px 6px; }
+  .thumb-cell, .thumb-cell img { width: 42px; height: 30px; }
+  .table-footer { display: none; }
+}
 </style>
